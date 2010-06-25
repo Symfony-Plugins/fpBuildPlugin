@@ -1,0 +1,39 @@
+# fpFilePlugin
+
+This plugin provide set of classes. 
+They allow you to work with file system on oop like style.
+
+## Requirements
+
+* [Symfony](http://www.symfony-project.org) 1.2.x - 1.4.x
+* [sfPhpunitPlugin](http://www.symfony-project.org/plugins/sfPhpunitPlugin) 1.0.11 or above
+
+## Installation
+
+1.download:
+
+pear package
+       
+    php symfony plugin:install fpFilePlugin
+    
+svn tag 
+
+    svn checkout http://svn.symfony-project.com/plugins/fpFilePlugin/tags/fpFilePlugin-1.0.1
+
+dev version:
+
+    svn checkout http://svn.symfony-project.com/plugins/fpFilePlugin/trunk
+ 
+2.enable it in ProjectConfiguration:
+
+    class ProjectConfiguration extends sfProjectConfiguration
+    {
+      public function setup()
+      {
+        $this->enablePlugins('fpFilePlugin');
+      }
+    }
+
+## Overview
+ 
+You can look at the plugin tests to see what you can do with it.

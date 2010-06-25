@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.4.6" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+  <name>fpBuildPlugin</name>
+  <channel>plugins.symfony-project.org</channel>
+  <summary>A build project task to simplify project build and deploy process</summary>
+  <description>A build project task to simplify project build and deploy process</description>
+	<lead>
+	  <name>Maksim Kotlyar</name>
+	  <user>maksim_ka</user>
+	  <email>mkotlar@ukr.net</email>
+	  <active>yes</active>
+  </lead>
+  <date>2010-06-25</date>
+  <time>20:00:00</time>
+  <version>
+    <release>1.0.0</release>
+    <api>1.2.0</api>
+  </version>
+  <stability>
+    <release>stable</release>
+    <api>stable</api>
+  </stability>
+  <license uri="http://www.symfony-project.org/license">MIT license</license>
+  <notes>-</notes>
+  <contents>
+    <dir name="/">
+      <dir name="doc">
+        <dir name="1.2">
+          <dir name="doctrine"> 
+            <file role="data" name="build.profile.example" />
+            <file role="data" name="deploy.profile.example" />
+          </dir>
+          <dir name="propel">
+            <file role="data" name="build.profile.example" />
+            <file role="data" name="deploy.profile.example" />
+          </dir>
+        </dir>
+        <dir name="1.4">
+          <dir name="doctrine"> 
+            <file role="data" name="build.profile.example" />
+            <file role="data" name="deploy.profile.example" />
+          </dir>
+          <dir name="propel">
+            <file role="data" name="build.profile.example" />
+            <file role="data" name="deploy.profile.example" />
+          </dir>
+        </dir>
+      </dir>
+      <dir name="lib">
+        <dir name="task">
+          <file role="data" name="ProjectBuildTask.class.php" />
+        </dir>
+      </dir>
+      <dir name="test">
+        <dir name="phpunit">
+          <dir name="fixtures">
+            <dir name="common" />
+            <dir name="units"></dir>
+          </dir>
+          <dir name="units">
+          </dir>
+          <file role="data" name="fpFileRootTestSuite.php" />
+        </dir>
+      </dir>
+		  <file role="data" name="LICENSE" />
+		  <file role="data" name="README" />
+    </dir>
+  </contents>
+  <dependencies>
+    <required>
+      <php><min>5.2.4</min></php>
+      <pearinstaller><min>1.4.1</min></pearinstaller>
+      <package>
+				<name>symfony</name>
+				<channel>pear.symfony-project.com</channel>
+				<min>1.2.0</min>
+				<max>1.4.40</max>
+      </package>
+      <package>
+        <name>sfPhpunitPlugin</name>
+        <channel>plugins.symfony-project.org</channel>
+        <min>1.0.11</min>
+      </package>
+    </required>
+  </dependencies>
+  <phprelease />
+  <changelog>
+    <release>
+      <version>
+        <release>1.0.1</release>
+          <api>1.2.0</api>
+        </version>
+        <stability>
+         <release>stable</release>
+         <api>1.2.0</api>
+        </stability>
+        <license uri="http://www.symfony-project.com/license">MIT license</license>
+        <date>2010-06-25</date>
+        <license>MIT</license>
+        <notes>
+          * add test to the package 
+        </notes>
+    </release>
+    <release>
+      <version>
+        <release>1.0.0</release>
+          <api>1.2.0</api>
+        </version>
+        <stability>
+         <release>stable</release>
+         <api>1.2.0</api>
+        </stability>
+        <license uri="http://www.symfony-project.com/license">MIT license</license>
+        <date>2010-06-25</date>
+        <license>MIT</license>
+        <notes>
+          * init release 
+        </notes>
+    </release>
+</changelog>
+</package>

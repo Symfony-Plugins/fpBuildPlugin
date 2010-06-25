@@ -7,6 +7,7 @@ class fpBuildRootTestSuite extends sfBasePhpunitTestSuite
 	 */
 	protected function _start()
 	{
+	  sfConfig::set('sf_plugin_test_dir', dirname(__FILE__));
 	}
 	
 	protected function _end()

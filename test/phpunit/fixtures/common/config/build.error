@@ -1,0 +1,3 @@
+php plugins/fpBuildPlugin/test/phpunit/fixtures/common/taskAddLetterA.php
+php plugins/fpBuildPlugin/test/phpunit/fixtures/common/taskWithError.php
+php plugins/fpBuildPlugin/test/phpunit/fixtures/common/taskAddLetterB.php
