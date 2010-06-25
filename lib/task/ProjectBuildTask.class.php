@@ -20,6 +20,37 @@ EOF;
 
   }
 
+  /**
+   * @return sfTimer
+   */
+  private function createTimer()
+  {
+    $timer = new sfTimer();
+    $timer->startTimer();
+
+    return $timer;
+  }
+
+  /**
+   * @return sfTimer
+   */
+  private function getTimer()
+  {
+    $timer = new sfTimer();
+    $timer->startTimer();
+
+    return $timer;
+  }
+
+  private function showTime(sfTimer $timer, $message = '', $afterMessage = "\n\n")
+  {
+    $timer->addTime();
+    
+    echo $message;
+    echo (int)$timer->getElapsedTime() . " second(s)\n";
+    echo $afterMessage;
+  }
+
   protected function execute($arguments = array(), $options = array())
   {
     $profile = $arguments['profile'];
@@ -33,11 +64,15 @@ EOF;
 
     chdir(sfConfig::get('sf_root_dir'));
 
-    foreach (file($profile) as $task) 
+    $totalTimer = $this->getTimer();
+
+    foreach (file($profile) as $task)
     {
 
+      $timer = $this->getTimer();
+
       $task = trim($task);
-      
+
       if(!empty($task))
       {
         $taskName = 'Task: ' . $task;
@@ -45,14 +80,21 @@ EOF;
         $result = 0;
         echo $taskName . "\n\n";
         passthru($task, $result);
-        echo "\n\n";
+        echo "\n";
+
+        $this->showTime($timer);
 
         if((int)$result > 0)
         {
+          $this->showTime($totalTimer, 'Total time: ');
           throw new Exception('`' . $taskName . '`. Running with error #ID: `'.$result.'`');
         }
-        
+
       }
+
     }
+
+    $this->showTime($totalTimer, 'Total time: ');
+
   }
 }
