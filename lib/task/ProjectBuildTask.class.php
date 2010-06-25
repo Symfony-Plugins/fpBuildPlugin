@@ -32,8 +32,27 @@ EOF;
     }
 
     chdir(sfConfig::get('sf_root_dir'));
-    foreach (file($profile) as $task) {
-      $this->log($this->getFilesystem()->sh($task));
+
+    foreach (file($profile) as $task) 
+    {
+
+      $task = trim($task);
+      
+      if(!empty($task))
+      {
+        $taskName = 'Task: ' . $task;
+
+        $result = 0;
+        echo $taskName . "\n\n";
+        passthru($task, $result);
+        echo "\n\n";
+
+        if((int)$result > 0)
+        {
+          throw new Exception('`' . $taskName . '`. Running with error #ID: `'.$result.'`');
+        }
+        
+      }
     }
   }
 }
