@@ -23,17 +23,6 @@ EOF;
   /**
    * @return sfTimer
    */
-  private function createTimer()
-  {
-    $timer = new sfTimer();
-    $timer->startTimer();
-
-    return $timer;
-  }
-
-  /**
-   * @return sfTimer
-   */
   private function getTimer()
   {
     $timer = new sfTimer();
