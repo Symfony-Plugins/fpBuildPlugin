@@ -15,15 +15,82 @@ EOF;
     $this->addArguments(array(
     new sfCommandArgument(
       'profile',
-      sfCommandArgument::OPTIONAL, 
+      sfCommandArgument::REQUIRED, 
       'Build profile')));
 
+  }
+
+
+  protected function execute($arguments = array(), $options = array())
+  {
+    $totalTimer = $this->getTimer();
+    chdir(sfConfig::get('sf_root_dir'));
+    foreach ($this->_prepareCommands($arguments['profile']) as $command) {
+      $this->_doCommand($command);
+    }
+
+    $this->showTime($totalTimer, 'Total time: ');
+  }
+  
+  protected function _doCommand($command)
+  {
+    $command = trim($command);
+    if(empty($command)) return;
+
+    $this->logSection("Command :", $command);
+    
+    $timer = $this->getTimer();
+    $result = 0;
+    
+    passthru($command, $result);
+
+    $this->showTime($timer);
+
+    if((int)$result > 0) {
+      $this->showTime($totalTimer, 'Total time: ');
+      
+      throw new Exception('Command: `' . $command . '`. Exit with error code: `'.$result.'`');
+    }
+  }
+  
+  /**
+   * 
+   * @param string $source
+   * 
+   * @throws Exceptino if the source cannot be found.
+   * 
+   * @return array
+   */
+  protected function _prepareCommands($source)
+  {
+    // guess file form project root config directory.
+    $relativeConfigPath = sfConfig::get('sf_root_dir').'/config/'.$source;
+    if (file_exists($relativeConfigPath)) {
+      return file($relativeConfigPath);
+    }
+
+    // guess relative from project root
+    $relativeRootPath = sfConfig::get('sf_root_dir') . '/'. $source;
+    if (file_exists($relativeRootPath)) {
+      return file($relativeRootPath);
+    }
+    
+    // guess absolute
+    $absolutePath = $source;
+    if (file_exists($absolutePath)) {
+      return file($absolutePath);
+    }
+    
+    throw new Exception("Provided path to build profile is not exist or invalid. Given parameter is `{$source}`. The next pathes were tried: " . 
+      "\nRelative from config `{$relativeConfigPath}`," .
+      "\nRelative from root - `{$relativeRootPath}`," .
+      "\nAbsolute - `{$absolutePath}`");
   }
 
   /**
    * @return sfTimer
    */
-  private function getTimer()
+  protected function getTimer()
   {
     $timer = new sfTimer();
     $timer->startTimer();
@@ -31,59 +98,12 @@ EOF;
     return $timer;
   }
 
-  private function showTime(sfTimer $timer, $message = '', $afterMessage = "\n\n")
+  protected function showTime(sfTimer $timer, $message = 'Time : ', $afterMessage = "\n\n")
   {
     $timer->addTime();
-    
-    echo $message;
-    echo (int)$timer->getElapsedTime() . " second(s)\n";
-    echo $afterMessage;
-  }
-
-  protected function execute($arguments = array(), $options = array())
-  {
-    $profile = $arguments['profile'];
-    $configProfile = sfConfig::get('sf_root_dir').'/config/'.$profile;
-    if (file_exists($configProfile)) {
-      $profile = $configProfile;
-    }
-    if (!(file_exists($profile) && is_readable($profile))) {
-      throw new Exception('Provided path to build profile is not exist or invalid. Given path is `'.$arguments['profile'].'`');
-    }
-
-    chdir(sfConfig::get('sf_root_dir'));
-
-    $totalTimer = $this->getTimer();
-
-    foreach (file($profile) as $task)
-    {
-
-      $timer = $this->getTimer();
-
-      $task = trim($task);
-
-      if(!empty($task))
-      {
-        $taskName = 'Task: ' . $task;
-
-        $result = 0;
-        echo $taskName . "\n\n";
-        passthru($task, $result);
-        echo "\n";
-
-        $this->showTime($timer);
-
-        if((int)$result > 0)
-        {
-          $this->showTime($totalTimer, 'Total time: ');
-          throw new Exception('`' . $taskName . '`. Running with error #ID: `'.$result.'`');
-        }
-
-      }
-
-    }
-
-    $this->showTime($totalTimer, 'Total time: ');
-
+    $this->log('');
+    $this->logSection($message, date('i:s', (int) $timer->getElapsedTime()));
+    $this->log('');
+    $this->log('');
   }
 }
