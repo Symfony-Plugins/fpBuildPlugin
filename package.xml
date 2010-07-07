@@ -10,7 +10,7 @@
 	  <email>mkotlar@ukr.net</email>
 	  <active>yes</active>
   </lead>
-  <date>2010-06-25</date>
+  <date>2010-07-07</date>
   <time>20:00:00</time>
   <version>
     <release>1.0.0</release>
@@ -59,7 +59,9 @@
           </dir>
           <dir name="units">
           </dir>
-          <file role="data" name="fpFileRootTestSuite.php" />
+          <dir name="temp">
+          </dir>
+          <file role="data" name="fpBuildRootTestSuite.php" />
         </dir>
       </dir>
 		  <file role="data" name="LICENSE" />
@@ -85,22 +87,6 @@
   </dependencies>
   <phprelease />
   <changelog>
-    <release>
-      <version>
-        <release>1.0.1</release>
-          <api>1.2.0</api>
-        </version>
-        <stability>
-         <release>stable</release>
-         <api>1.2.0</api>
-        </stability>
-        <license uri="http://www.symfony-project.com/license">MIT license</license>
-        <date>2010-06-25</date>
-        <license>MIT</license>
-        <notes>
-          * add test to the package 
-        </notes>
-    </release>
     <release>
       <version>
         <release>1.0.0</release>
