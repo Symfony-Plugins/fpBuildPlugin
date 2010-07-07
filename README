@@ -1,12 +1,7 @@
-# fpFilePlugin
+# fpBuildPlugin
 
-This plugin provide set of classes. 
-They allow you to work with file system on oop like style.
-
-## Requirements
-
-* [Symfony](http://www.symfony-project.org) 1.2.x - 1.4.x
-* [sfPhpunitPlugin](http://www.symfony-project.org/plugins/sfPhpunitPlugin) 1.0.11 or above
+This is a simple way to wirte your own list of command to make deploy ro build.
+Some examples are provided in doc folder.
 
 ## Installation
 
@@ -14,15 +9,15 @@ They allow you to work with file system on oop like style.
 
 pear package
        
-    php symfony plugin:install fpFilePlugin
+    php symfony plugin:install fpBuildPlugin
     
 svn tag 
 
-    svn checkout http://svn.symfony-project.com/plugins/fpFilePlugin/tags/fpFilePlugin-1.0.1
+    svn checkout http://svn.symfony-project.com/plugins/fpBuildPlugin/tags/fpBuildPlugin-1.0.0
 
 dev version:
 
-    svn checkout http://svn.symfony-project.com/plugins/fpFilePlugin/trunk
+    svn checkout http://svn.symfony-project.com/plugins/fpBuildPlugin/trunk
  
 2.enable it in ProjectConfiguration:
 
@@ -30,7 +25,7 @@ dev version:
     {
       public function setup()
       {
-        $this->enablePlugins('fpFilePlugin');
+        $this->enablePlugins('fpBuildPlugin');
       }
     }
 
