@@ -82,6 +82,7 @@
         <name>sfPhpunitPlugin</name>
         <channel>plugins.symfony-project.org</channel>
         <min>1.0.11</min>
+        <max>2.0.0</max>
       </package>
     </required>
   </dependencies>
