@@ -2,6 +2,8 @@
 
 class ProjectBuildTask extends sfBaseTask
 {
+  protected $_totalTimer;
+  
   protected function configure()
   {
     $this->namespace        = 'project';
@@ -17,19 +19,21 @@ EOF;
       'profile',
       sfCommandArgument::REQUIRED, 
       'Build profile')));
-
+      
+    // init total timer
+    $this->_totalTimer = $this->getTimer();
+    
+    chdir(sfConfig::get('sf_root_dir'));
   }
 
 
   protected function execute($arguments = array(), $options = array())
-  {
-    $totalTimer = $this->getTimer();
-    chdir(sfConfig::get('sf_root_dir'));
+  {    
     foreach ($this->_prepareCommands($arguments['profile']) as $command) {
       $this->_doCommand($command);
     }
 
-    $this->showTime($totalTimer, 'Total time: ');
+    $this->showTime($this->getTotalTimmer(), 'Total time: ');
   }
   
   protected function _doCommand($command)
@@ -47,7 +51,7 @@ EOF;
     $this->showTime($timer);
 
     if((int)$result > 0) {
-      $this->showTime($totalTimer, 'Total time: ');
+      $this->showTime($this->getTotalTimmer(), 'Total time: ');
       
       throw new Exception('Command: `' . $command . '`. Exit with error code: `'.$result.'`');
     }
@@ -96,6 +100,14 @@ EOF;
     $timer->startTimer();
 
     return $timer;
+  }
+  
+  /**
+   * @return sfTimer
+   */
+  protected function getTotalTimmer()
+  {
+    return $this->_totalTimer;
   }
 
   protected function showTime(sfTimer $timer, $message = 'Time : ', $afterMessage = "\n\n")
