@@ -31,7 +31,7 @@ EOF;
 
   protected function execute($arguments = array(), $options = array())
   {
-    if(isset($options['quiet']))
+    if(isset($options['quiet']) && $options['quiet'])
     {
       $this->_quiet = true;
     }
